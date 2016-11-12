@@ -3,6 +3,7 @@ package picolog
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 type ConsoleLogger struct {
@@ -11,10 +12,12 @@ type ConsoleLogger struct {
 }
 
 func (cl *ConsoleLogger) Println(data ...interface{}) {
+	fmt.Fprint(cl.file, time.Now().Format(time.Stamp)+":")
 	fmt.Fprintln(cl.file, data...)
 }
 
 func (cl *ConsoleLogger) Print(data ...interface{}) {
+	fmt.Fprint(cl.file, time.Now().Format(time.Stamp)+":")
 	fmt.Fprint(cl.file, data...)
 }
 

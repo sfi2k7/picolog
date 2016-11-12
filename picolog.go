@@ -52,14 +52,14 @@ func (lr *LogRotator) rotate() {
 func (lr *LogRotator) open() {
 	files, err := ioutil.ReadDir(lr.logPath)
 
-	if err == nil && len(files) > 0 {
+	if err == nil && len(files) > 3 {
 		zipFile, err := os.Create(lr.logPath + "backup" + time.Now().Format("15_04_05") + ".gzip")
 		if err != nil {
 			fmt.Println(err)
 		}
 		gzipped := gzip.NewWriter(zipFile)
 		for _, f := range files {
-			if strings.Index(f.Name(), ".gzip") > 3 || strings.Index(f.Name(), lr.prefix+"_") != 0 {
+			if strings.Index(f.Name(), ".gzip") > 0 || strings.Index(f.Name(), lr.prefix+"_") != 0 {
 				continue
 			}
 			s, _ := os.Open(lr.logPath + f.Name())
