@@ -5,7 +5,7 @@ import (
 )
 
 func getLogPath(prefix string) string {
-	p := "c:\\db\\" + prefix + "\\logs\\"
+	p := "c:\\db\\apps\\" + prefix + "\\logs\\"
 	if _, err := os.Stat(p); err != nil {
 		os.MkdirAll(p, 777)
 	}

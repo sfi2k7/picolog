@@ -1,7 +1,7 @@
 package picolog
 
 func getLogPath(prefix string) string {
-	p := "/var/" + prefix + "/logs/"
+	p := "/var/apps/" + prefix + "/logs/"
 
 	return p
 }
