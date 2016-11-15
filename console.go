@@ -9,9 +9,15 @@ import (
 type ConsoleLogger struct {
 	fileName string
 	file     *os.File
+	IsDev    bool
 }
 
 func (cl *ConsoleLogger) Println(data ...interface{}) {
+	if cl.IsDev {
+		fmt.Print(time.Now().Format(time.Stamp) + ":")
+		fmt.Println(data...)
+		return
+	}
 	fmt.Fprint(cl.file, time.Now().Format(time.Stamp)+":")
 	fmt.Fprintln(cl.file, data...)
 }
@@ -25,6 +31,10 @@ func (cl *ConsoleLogger) Close() {
 	if cl.file != nil {
 		cl.file.Close()
 	}
+}
+
+func (cl *ConsoleLogger) SetDev() {
+	cl.IsDev = true
 }
 
 func NewConsole(prefix string) *ConsoleLogger {
