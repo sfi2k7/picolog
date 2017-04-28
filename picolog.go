@@ -23,6 +23,7 @@ type LogRotator struct {
 func (lr *LogRotator) Log(line []byte) {
 	lr.lock.Lock()
 	defer lr.lock.Unlock()
+
 	lr.count += int64(len(line))
 	if lr.count > 50000000 {
 		lr.rotate()
